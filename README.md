@@ -4,9 +4,10 @@
 
 <h3>Get the app running</h3>
 <ol>
+
 <li>Go to an empty folder on your computer and in your terminal run <code>git clone https://github.com/StephenGrable1/OmegaSpace</code> to copy the repo onto your machine</li>
 
-<li>In your terminal, run <code>npm install</code> to install all the dependencies of this app<li>
+<li>In your terminal, run <code>npm install</code> to install all the dependencies of this app</li>
 
 <li>Now you can run <code>npm start</code> and the app should open on localhost port 8080</li>
 
