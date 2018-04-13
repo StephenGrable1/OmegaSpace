@@ -6,6 +6,15 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
+  entry: './src/index.js',
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5000',
+        secure: false
+    }
+    },
+  },
   module: {
     rules: [
       {
@@ -18,8 +27,15 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"]
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          'file-loader'
+        ]
       }
     ]
   },
   plugins: [htmlPlugin]
+  
 };
