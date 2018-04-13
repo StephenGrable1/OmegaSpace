@@ -18,8 +18,8 @@ textController.getText = (req, res) => {
 textController.saveText = (req, res) => {
    Text.findOne({ "_id": "5ad0eca5f36d286a71b4e0ae"}, function (err, foundText) {
     if (err) return console.log(err,'this is the first error');
-  
-    foundText.page = 'newest text';
+    
+    foundText.page = req.body.text;
     foundText.save(function (err, updatedText) {
       if (err) return console.log(err, 'this is the second error');
       res.send(updatedText);
