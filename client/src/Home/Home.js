@@ -17,6 +17,12 @@ class Home extends React.Component {
 
   }
 
+  componentDidMount(){
+    fetch('/api/gettext')
+      .then(res => res.json())
+      .then(data => this.setState({ text: data }))
+  }
+
   handleChange(value) {
     this.setState({ text: value })
   }
