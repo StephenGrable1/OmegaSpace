@@ -9,11 +9,9 @@ const text = new Text({page: 'most recentest'})
 
 textController.getText = (req, res) => {
   Text.find({ "_id": "5ad0eca5f36d286a71b4e0ae" }, (err, text) => {
-    // textController.ids.push(text[text.length - 1]._id)
+    res.send(text);
   })
-  res.send('shit found')
 }
-
 
 textController.saveText = (req, res) => {
    Text.findOne({ "_id": "5ad0eca5f36d286a71b4e0ae"}, function (err, foundText) {
