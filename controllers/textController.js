@@ -8,11 +8,12 @@ const text = new Text({page: 'most recentest'})
 
 
 textController.getText = (req, res) => {
+  console.log('trying to get text')
   Text.find({ "_id": "5ad0eca5f36d286a71b4e0ae" }, (err, text) => {
-    // textController.ids.push(text[text.length - 1]._id)
-  })
-  res.send('shit found')
-}
+    console.log('This is text',text[0].page)
+    res.send(JSON.stringify(text[0].page));
+  });
+};
 
 
 textController.saveText = (req, res) => {
@@ -25,7 +26,7 @@ textController.saveText = (req, res) => {
       res.send(updatedText);
     });
   });
-}
+};
   
 
 
