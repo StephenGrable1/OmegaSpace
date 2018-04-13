@@ -9,7 +9,9 @@
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "body-parser": "^1.18.2",
     "concurrently": "^3.5.1",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "mongoose": "^5.0.14"
   }
 }
