@@ -8,16 +8,6 @@
     "server": "nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/haris799/OmegaSpace.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/haris799/OmegaSpace/issues"
-  },
-  "homepage": "https://github.com/haris799/OmegaSpace#readme",
   "dependencies": {
     "concurrently": "^3.5.1",
     "express": "^4.16.3"
