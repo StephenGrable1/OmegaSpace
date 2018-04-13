@@ -5,6 +5,8 @@ require('isomorphic-fetch');
 import ReactQuill from 'react-quill';
 import OmegaLogo from '../assets/OmegaSpace.png';
 import GithubLogo from '../assets/GithubLogo.png';
+import openSocket from 'socket.io-client';
+const socket = openSocket('http://localhost:5000');
 
 import './Home.css'
 
@@ -14,17 +16,27 @@ class Home extends React.Component {
     this.state = { text: '' }
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
-
+    this.listenToSocket = this.listenToSocket.bind(this);
   }
 
   componentDidMount(){
     fetch('/api/gettext')
       .then(res => res.json())
-      .then(data => this.setState({ text: data }))
+      .then(data => this.setState({ text: data }));
+      this.listenToSocket();
+    }
+    
+    listenToSocket() {
+    socket.on('updateText', function(text) {
+      this.setState({text : text});
+    });
   }
 
   handleChange(value) {
-    this.setState({ text: value })
+    this.setState({ 
+      text: value,
+    })
+    socket.emit('updateText', value);
   }
 
   handleSave() {
@@ -42,7 +54,7 @@ class Home extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log('Component is updating ', this.state.text)
+
   }
   render() {
     return (

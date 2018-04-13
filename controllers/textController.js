@@ -11,7 +11,7 @@ textController.getText = (req, res) => {
   console.log('trying to get text')
   Text.find({ "_id": "5ad0eca5f36d286a71b4e0ae" }, (err, text) => {
 
-    console.log('This is text', text[0].page)
+    // console.log('This is text', text[0].page)
     res.send(JSON.stringify(text[0].page));
   });
 };
