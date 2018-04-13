@@ -23,13 +23,13 @@ class Home extends React.Component {
 
   handleSave() {
     console.log('Should do a fetch here!')
-    fetch('/api/test', {
+    fetch('/api/savetext', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({message: 'Ahh suh dude'})
+      body: JSON.stringify({text: this.state.text})
     })
       .then(res => res.json())
       .then(data => console.log('here is data from server: ', data))

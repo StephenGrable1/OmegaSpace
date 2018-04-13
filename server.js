@@ -16,10 +16,7 @@ app.get('/', (req,res) => {
 })
 
 //things coming in from /api instead of /
-app.post('/api/test', (req, res) => {
-    console.log(req.body)
-    res.json({hi: `hey whats up from server got this ${req}`});
-})
+app.post('/api/savetext', textController.saveText)
 
 
 // app.get('/test', textController.getText)
