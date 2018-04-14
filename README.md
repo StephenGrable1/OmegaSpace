@@ -2,7 +2,7 @@
 
 <img src="./assets/OmegaSpace.png"/>
 
-<h3>Application Overview</h3>
+<h3>Project Overview</h3>
 <p>We took inspiration for this project from <a href="csbin.io">Csbin.io</a> and Google Docs. It's a real-time
 notepad editor that allows multiple people to edit documents 
 at the same time. We used a host of different technologies including 
@@ -11,11 +11,14 @@ at the same time. We used a host of different technologies including
 <h3>Technical Challenges</h3>
 <p>There were a few challenges we encountered while building this app.
 One of them involved the use of websockets and proxying requests to 
-multiple servers. If you view the source code for this project, you will see our <code>npm run dev</code> script inside package.json is running 3 different servers at the same time 
+multiple servers. If you view the source code for this project, you will see that our <code>npm run dev</code> script inside package.json is running 3 different servers at the same time 
 using a handy tool called <a href="https://www.npmjs.com/package/concurrently">Concurrently.</a> We initially had just two servers running in parallel. This worked beautifully for proxying request from our Webpack dev server to 
 our Express server to save data to our MongoDB database. However, once we 
-tried to implement websockets on the same server, it would break. 
-Our websocket listeners on the front end were unable to find the correct connection within our server on the backend. We found that socket.io and express were conflicting when trying to listen to connections the same port. We finally resolved this issue by creating an additional server 
+tried to implement websockets on our express server, we ran into problems.
+</p>
+
+<p> 
+Our websocket listeners on the front end were unable to find the correct connection within our server on the backend. We found that socket.io and express were conflicting when trying to listen to connections on the same port. We finally resolved this issue by creating another server 
 for our websockets that ran on a different port. 
 </p>
 
