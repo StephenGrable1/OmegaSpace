@@ -7,7 +7,6 @@ io.on('connection', (client) => {
 
     client.on('toText', (text) => {
         client.broadcast.emit('subscribeToText', text);
-        console.log("Inside websocket emitting to client: ", text);
     });
 
 });

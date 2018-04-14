@@ -17,8 +17,6 @@ class Home extends React.Component {
     this.state = { text: '' }
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    // this.listenToSocket = this.listenToSocket.bind(this);
-    this.changeState = this.changeState.bind(this);
   }
 
   componentDidMount(){
@@ -26,20 +24,11 @@ class Home extends React.Component {
         .then(res => res.json())
         .then(data => this.setState({ text: data }));
         socket.on('subscribeToText', (text) => {
-          this.changeState(text);
+          this.setState({text: text});
         });
     }
 
-    componentDidUpdate() {
-
-    }
-
-    changeState(text) {
-      this.setState({text: text});
-    }
-
   handleChange(value) {
-    console.log("This is it: " , value.length, this.state.text.length);
     if(value.length !== this.state.text.length) {
         console.log("I am Emitting");
         socket.emit('toText', value);
