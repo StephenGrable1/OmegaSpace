@@ -62,7 +62,6 @@ class Home extends React.Component {
       .then(res => res.json())
       .then(data => {
         this.handleSaveStatus('Saved!')
-        console.log('here is data from server: ', data)
       })
   }
   render() {
