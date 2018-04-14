@@ -1,4 +1,6 @@
-<h1>Get Started</h1>
+<h1>OmegaSpace</h1>
+
+<img src="./assets/OmegaSpace.png"/>
 
 <h3>Application Overview</h3>
 <p>We took inspiration for this project from <a href="csbin.io">Csbin.io</a> and Google Docs. It's a real-time
