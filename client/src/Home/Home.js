@@ -5,8 +5,9 @@ require('isomorphic-fetch');
 import ReactQuill from 'react-quill';
 import OmegaLogo from '../assets/OmegaSpace.png';
 import GithubLogo from '../assets/GithubLogo.png';
+
 import openSocket from 'socket.io-client';
-const socket = openSocket('http://localhost:5000');
+const  socket = openSocket('http://localhost:8000');
 
 import './Home.css'
 
@@ -20,15 +21,23 @@ class Home extends React.Component {
   }
 
   componentDidMount(){
-    fetch('/api/gettext')
-      .then(res => res.json())
-      .then(data => this.setState({ text: data }));
-      this.listenToSocket();
+    //This set interval for web socket hack
+    // setInterval(() => {
+      console.log('hiiii')
+      fetch('/api/gettext')
+        .then(res => res.json())
+        .then(data => this.setState({ text: data }));
+
+    // }, 10000)
+
+
+     this.listenToSocket();
     }
     
     listenToSocket() {
-    socket.on('updateText', function(text) {
-      this.setState({text : text});
+    socket.on('subscribeToText', (text) => {
+      console.log('Inside listen to socket', text)
+      this.setState({text: text})
     });
   }
 
@@ -36,11 +45,12 @@ class Home extends React.Component {
     this.setState({ 
       text: value,
     })
-    socket.emit('updateText', value);
+    this.handleSave();
+
+    socket.emit('subscribeToText', value);
   }
 
   handleSave() {
-    console.log('Should do a fetch here!')
     fetch('/api/savetext', {
       method: 'POST',
       headers: {
@@ -56,6 +66,7 @@ class Home extends React.Component {
   componentDidUpdate() {
 
   }
+
   render() {
     return (
       <div>
