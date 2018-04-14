@@ -25,13 +25,13 @@ class Home extends React.Component {
       fetch('/api/gettext')
         .then(res => res.json())
         .then(data => this.setState({ text: data }));
+        socket.on('subscribeToText', (text) => {
+          this.changeState(text);
+        });
     }
 
     componentDidUpdate() {
-      socket.on('subscribeToText', (text) => {
-        console.log("Listening to socket: ", text);
-        this.changeState(text);
-      });
+
     }
 
     changeState(text) {
@@ -39,8 +39,11 @@ class Home extends React.Component {
     }
 
   handleChange(value) {
-    console.log("This is it: " , value, this.state.text);
-      socket.emit('toText', value);
+    console.log("This is it: " , value.length, this.state.text.length);
+    if(value.length !== this.state.text.length) {
+        console.log("I am Emitting");
+        socket.emit('toText', value);
+      }
   }
 
   handleSave() {
