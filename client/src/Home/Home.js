@@ -26,14 +26,15 @@ class Home extends React.Component {
         socket.on('subscribeToText', (text) => {
           this.setState({text: text});
         });
-    }
+    };
 
   handleChange(value) {
     if(value.length !== this.state.text.length) {
         console.log("I am Emitting");
         socket.emit('toText', value);
-      }
-  }
+      };
+      this.setState({text: value});
+  };
 
   handleSave() {
     fetch('/api/savetext', {
