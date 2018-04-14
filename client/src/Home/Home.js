@@ -17,31 +17,30 @@ class Home extends React.Component {
     this.state = { text: '' }
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
-    this.listenToSocket = this.listenToSocket.bind(this);
+    // this.listenToSocket = this.listenToSocket.bind(this);
+    this.changeState = this.changeState.bind(this);
   }
 
   componentDidMount(){
-    //This set interval for web socket hack
-    // setInterval(() => {
       fetch('/api/gettext')
         .then(res => res.json())
         .then(data => this.setState({ text: data }));
-
-    // }, 10000)
-
-
-     this.listenToSocket();
     }
-    
-    listenToSocket() {
-    socket.on('subscribeToText', (text) => {
-      this.setState({text: text})
-      console.log("Hey this is inside socket: ", text);
-    });
-  }
+
+    componentDidUpdate() {
+      socket.on('subscribeToText', (text) => {
+        console.log("Listening to socket: ", text);
+        this.changeState(text);
+      });
+    }
+
+    changeState(text) {
+      this.setState({text: text});
+    }
 
   handleChange(value) {
-    socket.emit('subscribeToText', value);
+    console.log("This is it: " , value, this.state.text);
+      socket.emit('toText', value);
   }
 
   handleSave() {
@@ -73,7 +72,6 @@ class Home extends React.Component {
               <img src={GithubLogo} alt="Github Logo" />
             </a>
           </div>
-
         </div>
         <ReactQuill placeholder={'Start your Omega journey... '} value={this.state.text} onChange={this.handleChange} />
       </div>
