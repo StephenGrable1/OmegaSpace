@@ -14,9 +14,11 @@ import './Home.css'
 class Home extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { text: '' }
+    this.state = { text: '', savedStatus: 'not saving' }
     this.handleChange = this.handleChange.bind(this);
     this.handleSave = this.handleSave.bind(this);
+    this.handleSaveStatus = this.handleSaveStatus.bind(this);
+
   }
 
   componentDidMount(){
@@ -29,14 +31,26 @@ class Home extends React.Component {
     };
 
   handleChange(value) {
-    if(value.length !== this.state.text.length) {
+    let status = '';
+    if (value.length !== this.state.text.length) {
         console.log("I am Emitting");
         socket.emit('toText', value);
+        status = 'Changes not saved.'
       };
-      this.setState({text: value});
+      this.setState({text: value, savedStatus: status});
   };
 
+  handleSaveStatus(status){
+    this.setState({savedStatus: status})
+    if (status === 'Saved!'){
+      setTimeout(() => {
+        this.setState({savedStatus: 'not saving'})
+      },2000)
+    }
+  }
+
   handleSave() {
+    this.handleSaveStatus('Loading...')
     fetch('/api/savetext', {
       method: 'POST',
       headers: {
@@ -46,15 +60,28 @@ class Home extends React.Component {
       body: JSON.stringify({text: this.state.text})
     })
       .then(res => res.json())
-      .then(data => console.log('here is data from server: ', data))
+      .then(data => {
+        this.handleSaveStatus('Saved!')
+        console.log('here is data from server: ', data)
+      })
   }
   render() {
+    let { savedStatus } = this.state;
+    let saveStatusRender = () => {
+      if (savedStatus === 'not saving'){
+        return '';
+      } else {
+        return savedStatus;
+      }
+    }
     return (
       <div>
         <div className="top-nav">
           <div className="omega-logo">
             <img src={OmegaLogo} alt='OmegaSpace Logo' />
           </div>
+
+          <p className="save-status">{ saveStatusRender() }</p>
 
           <div onClick={this.handleSave} className="save-button">
             Save

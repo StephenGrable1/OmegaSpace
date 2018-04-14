@@ -28,6 +28,15 @@
     width:50px;
 }
 
+.save-status {
+    float:right;
+    margin-right:250px;
+    margin-top:-50px;
+    padding-bottom:20px;
+    color:green;
+
+}
+
 
 .save-button {
     background-color:rgb(56, 56, 255);
