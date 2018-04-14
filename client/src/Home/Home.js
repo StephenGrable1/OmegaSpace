@@ -23,7 +23,6 @@ class Home extends React.Component {
   componentDidMount(){
     //This set interval for web socket hack
     // setInterval(() => {
-      console.log('hiiii')
       fetch('/api/gettext')
         .then(res => res.json())
         .then(data => this.setState({ text: data }));
@@ -36,17 +35,12 @@ class Home extends React.Component {
     
     listenToSocket() {
     socket.on('subscribeToText', (text) => {
-      console.log('Inside listen to socket', text)
       this.setState({text: text})
+      console.log("Hey this is inside socket: ", text);
     });
   }
 
   handleChange(value) {
-    this.setState({ 
-      text: value,
-    })
-    this.handleSave();
-
     socket.emit('subscribeToText', value);
   }
 
@@ -62,11 +56,6 @@ class Home extends React.Component {
       .then(res => res.json())
       .then(data => console.log('here is data from server: ', data))
   }
-
-  componentDidUpdate() {
-
-  }
-
   render() {
     return (
       <div>
