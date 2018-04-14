@@ -15,5 +15,5 @@
 
 <li>Finally run <code>npm run dev</code> and the app should open on localhost port 8080</li>
 
-<li>Hack Away!</li>
+<li>Hack Away!!</li>
 </ol>
